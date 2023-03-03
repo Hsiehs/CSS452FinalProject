@@ -90,7 +90,7 @@ class Particle {
         this.mVelocity[1] = y;
     }
     getAcceleration() { return this.mAcceleration; }
-    setAcceleration(x, y) { 
+    setAcceleration(x,y) { 
         this.mAcceleration[0] = x;
         this.mAcceleration[1] = y;
     }

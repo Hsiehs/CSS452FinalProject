@@ -10,7 +10,9 @@
 
 import * as glSys from "../core/gl.js";
 import GameObjectSet from "../game_objects/game_object_set.js";
+import FireEmitter from "./fire_emitter.js";
 import ParticleEmitter from "./particle_emitter.js";
+
 
 class ParticleSet extends GameObjectSet {
     constructor() {
@@ -25,9 +27,16 @@ class ParticleSet extends GameObjectSet {
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); // restore alpha blending
     }
 
-    addEmitterAt(x, y, n, func) {
-        let e = new ParticleEmitter(x, y, n, func);
+    createEffect(x, y, n) {
+        let e = new ParticleEmitter(x, y, n);
         this.mEmitterSet.push(e);
+        return e;
+    }
+
+    createFire(x, y, thickness, lifespan){
+        let e = new FireEmitter(x, y, thickness, lifespan)
+        this.mEmitterSet.push(e);
+        return e;
     }
 
     drawMarkers(aCamera) {

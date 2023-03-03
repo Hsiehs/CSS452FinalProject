@@ -71,6 +71,8 @@ import CollisionInfo from "./rigid_shapes/collision_info.js";
 import Particle from "./particles/particle.js";
 import ParticleSet from "./particles/particle_set.js";
 import ParticleEmitter from "./particles/particle_emitter.js";
+import FireEmitter from "./particles/fire_emitter.js";
+import FireParticle from "./particles/fire_particle.js";
 
 // local to this file only
 import * as glSys from "./core/gl.js";
