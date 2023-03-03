@@ -15,8 +15,8 @@ class FireEmitter extends ParticleEmitter {
 
         // Defualt fire effect values
         this.mSize = 1;
-        this.mStartColor = [1, 0, 0, 1];
-        this.mEndColor = [1, .7, .3, 0.6];
+        this.mStartColor = [0, 0, 0, 0];
+        this.mEndColor = [1, 0, 0, 1];
         this.mSizeROC = 0.97;
         this.mSizeRange = 2;
         this.mFlameHeight = 50.0;
@@ -64,7 +64,7 @@ class FireEmitter extends ParticleEmitter {
 
         // final color
         p.setFinalColor(this.mEndColor);
-        
+
         // size delta
         p.setSizeDelta(this.mSizeROC);
 

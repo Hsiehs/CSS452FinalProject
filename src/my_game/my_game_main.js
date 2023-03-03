@@ -42,9 +42,9 @@ class MyGame extends engine.Scene {
         this.mMsg = new engine.FontRenderable("Status Message");
         this.mMsg.setColor([0, 0, 0, 1]);
         this.mMsg.getXform().setPosition(5, 7);
-        this.mMsg.setTextHeight(3);
+        this.mMsg.setTextHeight(2);
 
-        this.fireEffect = this.mParticles.createFire(50, 50, 0.1, -1);
+        this.fireEffect = this.mParticles.createFire(50, 40, 0.1, -1);
 
     }
 
@@ -64,14 +64,43 @@ class MyGame extends engine.Scene {
     // The Update function, updates the application state. Make sure to _NOT_ draw
     // anything from this function!
     update() {
-        let msg = "";
+        let msg = "Size: " + this.fireEffect.getSize() + " Rate of Change: " + this.fireEffect.getSizeROC().toFixed(2) + " Flame Height: " + this.fireEffect.getFlameHeight() + " Flame Direction: " + this.fireEffect.getFlameSway();
+        let delta = 1;
+        if (engine.input.isKeyClicked(engine.input.keys.Up)) {
+            this.fireEffect.setSize(this.fireEffect.getSize() + 1);
+        }
+        if (engine.input.isKeyClicked(engine.input.keys.Down)) {
+            this.fireEffect.setSize(this.fireEffect.getSize() - 1);
+        }
+
+        if (engine.input.isKeyClicked(engine.input.keys.Right)) {
+            this.fireEffect.setSizeROC(this.fireEffect.getSizeROC() + 0.01);
+        }
+
+        if (engine.input.isKeyClicked(engine.input.keys.Left)) {
+            this.fireEffect.setSizeROC(this.fireEffect.getSizeROC() - 0.01);
+        }
+
+        if (engine.input.isKeyClicked(engine.input.keys.O)) {
+            this.fireEffect.setFlameHeight(this.fireEffect.getFlameHeight() - 5);
+        }
 
         if (engine.input.isKeyClicked(engine.input.keys.P)) {
+            this.fireEffect.setFlameHeight(this.fireEffect.getFlameHeight() + 5);
+        }
 
+        if (engine.input.isKeyClicked(engine.input.keys.Q)) {
+            this.fireEffect.setFlameSway(this.fireEffect.getFlameSway() - 5);
+        }
+
+        if (engine.input.isKeyClicked(engine.input.keys.W)) {
+            this.fireEffect.setFlameSway(this.fireEffect.getFlameSway() + 5);
         }
 
         // Particle System
         this.mParticles.update();
+
+        this.mMsg.setText(msg);
     }
 
 
