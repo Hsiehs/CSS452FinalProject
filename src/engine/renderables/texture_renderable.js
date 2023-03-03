@@ -1,5 +1,5 @@
 /*
  * File: texture_renderable.js
  */
-import TextureRenderable from "./texture_renderable_pixel_collision.js";
+import TextureRenderable from "./texture_renderable_main.js";
 export default TextureRenderable;

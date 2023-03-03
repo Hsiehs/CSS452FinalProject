@@ -16,6 +16,9 @@ class ParticleRenderable extends TextureRenderable {
     setColor(color){
         this.mColorArray = color;
     }
+    getColor(){
+        return super.getColor();
+    }
 }
 
 export default ParticleRenderable;

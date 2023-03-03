@@ -50,6 +50,9 @@ class TextureRenderable extends Renderable {
         this.mElmLeftIndex = 0;
         this.mElmBottomIndex = 0;
     }
+    setColor(color){
+        super.setColor(color);
+    }
 }
 
 export default TextureRenderable;

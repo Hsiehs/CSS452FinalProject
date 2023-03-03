@@ -96,7 +96,12 @@ class MyGame extends engine.Scene {
         if (engine.input.isKeyClicked(engine.input.keys.W)) {
             this.fireEffect.setFlameSway(this.fireEffect.getFlameSway() + 5);
         }
-
+        if (engine.input.isKeyClicked(engine.input.keys.R)) {
+            this.fireEffect.setEndColor([1, 0, 0, 1]);
+        }
+        if (engine.input.isKeyClicked(engine.input.keys.G)) {
+            this.fireEffect.setEndColor([0, 1, 0, 1]);
+        }
         // Particle System
         this.mParticles.update();
 
