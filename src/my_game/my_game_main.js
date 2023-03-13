@@ -97,10 +97,13 @@ class MyGame extends engine.Scene {
             this.fireEffect.setFlameSway(this.fireEffect.getFlameSway() + 5);
         }
         if (engine.input.isKeyClicked(engine.input.keys.R)) {
-            this.fireEffect.setEndColor([1, 0, 0, 1]);
+            this.fireEffect.setEndColor([1, .3, 0, 1]);
         }
         if (engine.input.isKeyClicked(engine.input.keys.G)) {
-            this.fireEffect.setEndColor([0, 1, 0, 1]);
+            this.fireEffect.setEndColor([.4, 1, 0, 1]);
+        }
+        if (engine.input.isKeyClicked(engine.input.keys.B)) {
+            this.fireEffect.setEndColor([0, .3, 1, 0]);
         }
         // Particle System
         this.mParticles.update();

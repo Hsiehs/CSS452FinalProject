@@ -33,7 +33,7 @@ class ParticleSet extends GameObjectSet {
         return e;
     }
 
-    createFire(x, y, thickness, lifespan){
+    createFire(x, y, thickness, lifespan) {
         let e = new FireEmitter(x, y, thickness, lifespan)
         this.mEmitterSet.push(e);
         return e;

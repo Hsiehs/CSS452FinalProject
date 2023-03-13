@@ -14,7 +14,7 @@ class ParticleRenderable extends TextureRenderable {
         this._setShader(defaultShaders.getParticleShader());
     }
     setColor(color){
-        this.mColorArray = color;
+       super.setColor(color);
     }
     getColor(){
         return super.getColor();

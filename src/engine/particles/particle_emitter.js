@@ -67,7 +67,7 @@ class ParticleEmitter {
     createParticle(atX, atY) {
         let life = 30 + Math.random() * 200;
         let p = new engine.Particle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
-        p.setColor(this.mStartColor);
+        //p.setColor(this.mStartColor);
         
         // size of the particle
 

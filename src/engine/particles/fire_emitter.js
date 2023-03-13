@@ -16,7 +16,7 @@ class FireEmitter extends ParticleEmitter {
         // Defualt fire effect values
         this.mSize = 1;
         this.mStartColor = [1, 0, 0, 1];
-        this.mEndColor = [1, 0, 0, 1];
+        this.mEndColor = [1, .3, 0, 0];
         this.mSizeROC = 0.97;
         this.mSizeRange = 2;
         this.mFlameHeight = 50.0;
@@ -47,7 +47,7 @@ class FireEmitter extends ParticleEmitter {
     createParticle(atX, atY) {
         let life = 30 + Math.random() * 60;
         let p = new FireParticle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
-        p.setColor(this.mStartColor);
+        //p.setColor(this.mStartColor);
 
         // size of the particle
         let r = this.mSizeRange + Math.random() * this.mSize;

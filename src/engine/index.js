@@ -104,7 +104,7 @@ function clearCanvas(color) {
     let gl = glSys.get();
     gl.clearColor(color[0], color[1], color[2], color[3]);  // set the color to be cleared
     gl.clear(gl.COLOR_BUFFER_BIT | gl.STENCIL_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        // clear to the color, stencil bit, and depth buffer bits
+    // clear to the color, stencil bit, and depth buffer bits
 }
 
 
@@ -120,9 +120,9 @@ export default {
 
     // Util classes
     Camera, Scene, Transform, BoundingBox, Material,
-    
+
     // Renderables
-    Renderable, TextureRenderable, SpriteRenderable, SpriteAnimateRenderable, 
+    Renderable, TextureRenderable, SpriteRenderable, SpriteAnimateRenderable,
     FontRenderable, LineRenderable, LightRenderable, IllumRenderable,
 
     // Game Objects
