@@ -24,11 +24,11 @@ class ExplosionEmitter extends ParticleEmitter {
     }
     
     // Getter functions
-    getExplosionRadius() { return this.mExplosionRadius; }
+    getExplosionTargetRadius() { return this.mExplosionRadius; }
     getExplosionForce() { return this.mExplosionForce; }
     
     // Setter functions
-    setExplosionRadius(radius) { this.mExplosionRadius = radius; }
+    setExplosionTargetRadius(radius) { this.mExplosionRadius = radius; }
     setExplosionForce(force) { this.mExplosionForce = force; }
 
     createParticle(atX, atY) {

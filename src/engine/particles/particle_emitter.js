@@ -1,7 +1,3 @@
-/* 
- * File: particle_emitter.js
- * 
- */
 "use strict";
 
 let kMinToEmit = 5; // Smallest number of particle emitted per cycle
