@@ -44,7 +44,8 @@ class MyGame extends engine.Scene {
         this.mMsg.getXform().setPosition(5, 7);
         this.mMsg.setTextHeight(2);
 
-        this.fireEffect = this.mParticles.createFire(50, 40, -1);
+        //this.fireEffect = this.mParticles.createFire(50, 40, -1);
+        this.fireEffect = this.mParticles.createSmoke(50, 40, 1000);
 
     }
 

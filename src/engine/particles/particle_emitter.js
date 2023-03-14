@@ -38,7 +38,7 @@ class ParticleEmitter {
     setSizeRange(Range) { this.mSizeRange = Range; }
     setPosition(x, y) { this.mEmitPosition = [x, y]; }
     setSizeROC(rate) { this.mSizeROC = rate; }
-    setThickness(scalar) {this.mNumParticles *= this.mNumParticles; }
+    setThickness(scalar) {this.mNumParticles *= scalar; }
 
     // Sets mNumParticles to 0 to kill the effect
     kill(){ this.mNumParticles = 0; }
