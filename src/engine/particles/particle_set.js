@@ -12,6 +12,7 @@ import * as glSys from "../core/gl.js";
 import GameObjectSet from "../game_objects/game_object_set.js";
 import FireEmitter from "./fire_emitter.js";
 import SmokeEmitter from "./smoke_emitter.js";
+import ExplosionEmitter from "./explosion_emitter.js";
 import ParticleEmitter from "./particle_emitter.js";
 
 
@@ -35,7 +36,13 @@ class ParticleSet extends GameObjectSet {
     }
 
     createFire(x, y, lifespan) {
-        let e = new FireEmitter(x, y, lifespan)
+        let e = new FireEmitter(x, y, lifespan);
+        this.mEmitterSet.push(e);
+        return e;
+    }
+
+    createExplosion(x, y) {
+        let e = new ExplosionEmitter(x, y);
         this.mEmitterSet.push(e);
         return e;
     }

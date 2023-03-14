@@ -6,19 +6,22 @@ import engine from "../index.js";
 class ExplosionEmitter extends ParticleEmitter {
     constructor(px, py) {
         super(px, py);
-        
+
+        // One explosion
+        this.lifetime = 840 + Date.now();
+
         // Defualt effect values
-        this.mNumParticles = 25; 
-        this.mSize = 2;
+        this.mNumParticles = 9; 
         this.mStartColor = [1, 0.5, 0, 1]; // orange
         this.mEndColor = [0, 0, 0, 0]; // black (fully transparent)
-        this.mSizeROC = 0.97;
-        this.mSizeRange = 2;
+        this.mSize = 2;
+        this.mSizeROC = 0.8;
+        this.mSizeRange = 3.75;
         
         // Default explosion effect values
-        this.mExplosionRadius = 100;
-        this.mExplosionForce = 50;
-      }
+        this.mExplosionRadius = 10;
+        this.mExplosionForce = 2;
+    }
     
     // Getter functions
     getExplosionRadius() { return this.mExplosionRadius; }
@@ -29,41 +32,39 @@ class ExplosionEmitter extends ParticleEmitter {
     setExplosionForce(force) { this.mExplosionForce = force; }
 
     createParticle(atX, atY) {
-        let life = 30 + Math.random() * 200;
+        let life = 1300 + Math.random() * 50;
         let p = new engine.Particle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
-        
-        // Set particle color to explosion color
+
+        // Set particle color to start color
         p.setColor(this.mStartColor);
-        
-        // Set particle size to random value within explosion radius
-        let r = Math.random() * this.mExplosionRadius;
+
+        // Randomize particle size within range
+        let r = this.mSize + Math.random() * this.mSizeRange;
         p.setSize(r, r);
-    
-        // Set final color to fade-out color
+
+        // Set final color to end color
         p.setFinalColor(this.mEndColor);
-    
-        // Set velocity based on explosion force
-        let angle = Math.random() * Math.PI * 2;
-        let speed = Math.random() * this.mExplosionForce;
-        let vx = speed * Math.cos(angle);
-        let vy = speed * Math.sin(angle);
-        p.setVelocity(vx, vy);
-    
-        // Set size delta to shrink over particle lifespan
-        p.setSizeDelta(-0.01);
-    
+
+        // Set particle velocity to move away from origin
+        let fx = (atX - this.getPosition()[0]) * this.mExplosionForce;
+        let fy = (atY - this.getPosition()[1]) * this.mExplosionForce * 1.5;
+        p.setVelocity(fx, fy);
+
+        // Set size delta to decrease size over time
+        p.setSizeDelta(this.mSizeROC);
+
         return p;
     }
     
     emitParticles(pSet) {
-        let angleDelta = Math.PI * 2 / this.mNumParticles;
-        let i, p;
-        for (i = 0; i < this.mNumParticles; i++) {
-          let angle = i * angleDelta;
-          let x = this.mEmitPosition[0] + this.mExplosionRadius * Math.cos(angle);
-          let y = this.mEmitPosition[1] + this.mExplosionRadius * Math.sin(angle);
-          p = this.createParticle(x, y);
-          pSet.addToSet(p);
+        if(this.lifetime < Date.now()) { this.kill(); }
+        for (let i = 0; i < this.mNumParticles; i++) {
+            let angle = Math.random() * Math.PI * 2;
+            let radius = Math.random() * this.mExplosionRadius;
+            let x = this.mEmitPosition[0] + radius * Math.cos(angle);
+            let y = this.mEmitPosition[1] + radius * Math.sin(angle);
+            let p = this.createParticle(x, y);
+            pSet.addToSet(p);
         }
     }
 }
