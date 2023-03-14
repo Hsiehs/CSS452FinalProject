@@ -231,7 +231,7 @@ class MyGame extends engine.Scene {
         }
 
         if (engine.input.isKeyClicked(engine.input.keys.I)) {
-            if (this.mXWind < 20) {
+            if (this.mXWind < 25) {
                 this.mXWind += 5;
             }
         }
@@ -245,7 +245,7 @@ class MyGame extends engine.Scene {
         }
 
         if (engine.input.isKeyClicked(engine.input.keys.P)) {
-            if (this.mYWind < 20) {
+            if (this.mYWind < 25) {
                 this.mYWind += 5;
             }
         }
