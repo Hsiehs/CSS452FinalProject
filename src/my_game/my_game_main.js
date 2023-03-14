@@ -4,6 +4,7 @@
  */
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
+import { eMouseButton } from "../engine/components/input.js";
 import engine from "../engine/index.js";
 
 class MyGame extends engine.Scene {
@@ -14,6 +15,9 @@ class MyGame extends engine.Scene {
 
         this.mMsg = null;
         this.mParticles = null;
+
+        this.mEffects = ["Fire", "Smoke", "Explosion"];
+        this.mEffectsSelector = 0;
 
     }
 
@@ -44,8 +48,12 @@ class MyGame extends engine.Scene {
         this.mMsg.getXform().setPosition(5, 7);
         this.mMsg.setTextHeight(2);
 
-        //this.fireEffect = this.mParticles.createFire(50, 40, -1);
-        this.fireEffect = this.mParticles.createSmoke(50, 40, 1000);
+        this.mMsg2 = new engine.FontRenderable("");
+        this.mMsg2.setColor([0, 0, 0, 1]);
+        this.mMsg2.getXform().setPosition(5, 75);
+        this.mMsg2.setTextHeight(2);
+
+        this.smokeEffect = this.mParticles.createSmoke(50, 40, 1500);
 
     }
 
@@ -58,6 +66,7 @@ class MyGame extends engine.Scene {
         this.mCamera.setViewAndCameraMatrix();
 
         this.mMsg.draw(this.mCamera);
+        this.mMsg2.draw(this.mCamera);
 
         this.mParticles.draw(this.mCamera);
     }
@@ -65,21 +74,30 @@ class MyGame extends engine.Scene {
     // The Update function, updates the application state. Make sure to _NOT_ draw
     // anything from this function!
     update() {
-        let msg = "Size: " + this.fireEffect.getSize() + " Rate of Change: " + this.fireEffect.getSizeROC().toFixed(2);
+        let msg2 = "Effect Type: " + this.mEffects[this.mEffectsSelector];
+        //let msg = "Size: " + this.fireEffect.getSize() + " Rate of Change: " + this.fireEffect.getSizeROC().toFixed(2);
         let delta = 1;
+
+        if(engine.input.isKeyClicked(engine.input.keys.Space)){
+            this.fireEffect = this.mParticles.createFire(50, 40, 5000);
+        }
         if (engine.input.isKeyClicked(engine.input.keys.Up)) {
-            this.fireEffect.setSize(this.fireEffect.getSize() + 1);
+            this.fireEffect.setSize(this.fireEffect.getSize() + 1);     
         }
         if (engine.input.isKeyClicked(engine.input.keys.Down)) {
             this.fireEffect.setSize(this.fireEffect.getSize() - 1);
-        }
+        }  
 
         if (engine.input.isKeyClicked(engine.input.keys.Right)) {
-            this.fireEffect.setSizeROC(this.fireEffect.getSizeROC() + 0.01);
+            if(this.mEffectsSelector < 3){
+                this.mEffectsSelector++;
+            }
         }
 
         if (engine.input.isKeyClicked(engine.input.keys.Left)) {
-            this.fireEffect.setSizeROC(this.fireEffect.getSizeROC() - 0.01);
+            if(this.mEffectsSelector > 0){
+                this.mEffectsSelector--;
+            }
         }
 
         if (engine.input.isKeyClicked(engine.input.keys.O)) {
@@ -109,7 +127,9 @@ class MyGame extends engine.Scene {
         // Particle System
         this.mParticles.update();
 
-        this.mMsg.setText(msg);
+        
+        //this.mMsg.setText(msg);
+        this.mMsg2.setText(msg2);
     }
 
 
