@@ -7,11 +7,11 @@
 let kMinToEmit = 5; // Smallest number of particle emitted per cycle
 
 class ParticleEmitter {
-    constructor(px, py, thickness) {
+    constructor(px, py) {
         // Emitter position
         this.mEmitPosition = [px, py];
         // Number of particles left to be emitted
-        this.mNumParticles = 10 * thickness;
+        this.mNumParticles = 10;
         // Size of particles
         this.mSize = 0.001;
         // Color of effect
@@ -38,9 +38,10 @@ class ParticleEmitter {
     setSizeRange(Range) { this.mSizeRange = Range; }
     setPosition(x, y) { this.mEmitPosition = [x, y]; }
     setSizeROC(rate) { this.mSizeROC = rate; }
+    setThickness(scalar) {this.mNumParticles *= this.mNumParticles; }
 
     // Sets mNumParticles to 0 to kill the effect
-    kill(){this.mNumParticles = 0; }
+    kill(){ this.mNumParticles = 0; }
 
     // Check if there are particles remaining
     expired() { return (this.mNumParticles <= 0); }
@@ -67,10 +68,10 @@ class ParticleEmitter {
     createParticle(atX, atY) {
         let life = 30 + Math.random() * 200;
         let p = new engine.Particle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
+        
         //p.setColor(this.mStartColor);
         
         // size of the particle
-
         let r = this.mSize + Math.random() * this.mSizeRange;
         p.setSize(r, r);
 

@@ -44,7 +44,7 @@ class MyGame extends engine.Scene {
         this.mMsg.getXform().setPosition(5, 7);
         this.mMsg.setTextHeight(2);
 
-        this.fireEffect = this.mParticles.createFire(50, 40, 0.1, -1);
+        this.fireEffect = this.mParticles.createFire(50, 40, -1);
 
     }
 
@@ -64,7 +64,7 @@ class MyGame extends engine.Scene {
     // The Update function, updates the application state. Make sure to _NOT_ draw
     // anything from this function!
     update() {
-        let msg = "Size: " + this.fireEffect.getSize() + " Rate of Change: " + this.fireEffect.getSizeROC().toFixed(2) + " Flame Height: " + this.fireEffect.getFlameHeight() + " Flame Direction: " + this.fireEffect.getFlameSway();
+        let msg = "Size: " + this.fireEffect.getSize() + " Rate of Change: " + this.fireEffect.getSizeROC().toFixed(2);
         let delta = 1;
         if (engine.input.isKeyClicked(engine.input.keys.Up)) {
             this.fireEffect.setSize(this.fireEffect.getSize() + 1);

@@ -73,6 +73,8 @@ import ParticleSet from "./particles/particle_set.js";
 import ParticleEmitter from "./particles/particle_emitter.js";
 import FireEmitter from "./particles/fire_emitter.js";
 import FireParticle from "./particles/fire_particle.js";
+import EchoEmmiter from "./particles/echo_emitter.js";
+import ExplosionEmmiter from "./particles/explosion_emitter.js";
 
 // local to this file only
 import * as glSys from "./core/gl.js";

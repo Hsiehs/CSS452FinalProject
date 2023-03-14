@@ -6,32 +6,33 @@ import FireParticle from "./fire_particle.js";
 
 class FireEmitter extends ParticleEmitter {
     // if lifespan is -1 it is ongoing
-    constructor(pX, pY, thickness, lifespan) {
-        super(pX, pY, thickness);
+    constructor(pX, pY, lifespan) {
+        super(pX, pY);
         this.mLifeSpan = null;
         if (lifespan != -1) {
             this.mLifeSpan = Date.now() + lifespan;
         }
 
-        // Defualt fire effect values
-        this.mSize = 1;
+        // Defualt effect values
+        this.mNumParticles = 1;
+        this.mSize = 2;
         this.mStartColor = [1, 0, 0, 1];
         this.mEndColor = [1, .3, 0, 0];
         this.mSizeROC = 0.97;
         this.mSizeRange = 2;
-        this.mFlameHeight = 50.0;
-        this.mFlameSway = 0;
+
+        // Default fire effect values
+        this.mFlameWindDir = [0, 50];
+        this.mFlameSpread = 1;
     }
 
-    getFlameHeight() { return this.mFlameHeight; }
-    getFlameSway() { return this.mFlameSway; }
+    // getters
+    getWindDirection() { return this.mWindDirection; }
+    getFlameSpread() { return this.mFlameSpread; }
 
-    setFlameHeight(flameHeight) {
-        this.mFlameHeight = flameHeight;
-    }
-    setFlameSway(flameSway) {
-        this.mFlameSway = flameSway;
-    }
+    // setters
+    setWindDirection(flameWindDir) { this.mFlameWindDir = flameWindDir; }
+    setFlameSpread(flameSpread) {this.mFlameSpread = flameSpread; }
 
     emitParticles(pSet) {
         let i, p;
@@ -46,21 +47,19 @@ class FireEmitter extends ParticleEmitter {
 
     createParticle(atX, atY) {
         let life = 30 + Math.random() * 60;
-        let p = new FireParticle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
-        //p.setColor(this.mStartColor);
+        let xStart = atX + ((Math.random() - 0.5) * this.mFlameSpread);
+        let p = new FireParticle(engine.defaultResources.getDefaultPSTexture(), xStart, atY, life);
 
         // size of the particle
         let r = this.mSizeRange + Math.random() * this.mSize;
         p.setSize(r, r);
-
-
 
         // velocity on the particle
         let fx = 10 - 20 * Math.random();
         let fy = 10 * Math.random();
         p.setVelocity(fx, fy);
 
-        p.setAcceleration(this.mFlameSway, this.mFlameHeight);
+        p.setAcceleration(this.mFlameWindDir[0], this.mFlameWindDir[1]);
 
         // final color
         p.setFinalColor(this.mEndColor);

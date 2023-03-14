@@ -27,14 +27,14 @@ class ParticleSet extends GameObjectSet {
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); // restore alpha blending
     }
 
-    createEffect(x, y, n) {
-        let e = new ParticleEmitter(x, y, n);
+    createEffect(x, y) {
+        let e = new ParticleEmitter(x, y);
         this.mEmitterSet.push(e);
         return e;
     }
 
-    createFire(x, y, thickness, lifespan) {
-        let e = new FireEmitter(x, y, thickness, lifespan)
+    createFire(x, y, lifespan) {
+        let e = new FireEmitter(x, y, lifespan)
         this.mEmitterSet.push(e);
         return e;
     }
