@@ -11,9 +11,14 @@ import * as texture from "../resources/texture.js";
 import * as shaderResources from "../core/shader_resources.js";
 
 class TextureRenderable extends Renderable {
-    constructor(myTexture) {
+    constructor(myTexture, color) {
         super();
-        super.setColor([0.8, 0.8, 0.8, 0]); // Alpha of 0: switch off tinting of texture
+        if(color == null){
+            super.setColor([0, 0, 0, 0]);
+        }else{
+            super.setColor([0.8, 0.8, 0.8, 1]);
+        }
+         // Alpha of 0: switch off tinting of texture
         super._setShader(shaderResources.getTextureShader());
         
         this.mTexture = null;

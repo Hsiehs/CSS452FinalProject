@@ -2,7 +2,6 @@
 
 import ParticleEmitter from "./particle_emitter.js";
 import engine from "../index.js";
-import SmokeParticle from "./smoke_particle.js";
 
 class SmokeEmitter extends ParticleEmitter {
     // if lifespan is -1 it is ongoing
@@ -14,23 +13,39 @@ class SmokeEmitter extends ParticleEmitter {
         }
 
         // Default Smoke effect values
-        this.mNumParticles = 10;
+        this.mNumParticles = 0.1;
         this.mSize = 3;
         this.mStartColor = [0.8, 0.8, 0.8, 1];
-        this.mEndColor = [0.0, 0, 0, 0];
+        this.mEndColor = [0, 0, 0, 1];
         this.mSizeROC = 1;  
         this.mSizeRange = 2;
+
+        this.mXCoverage = 10;
+        this.mYCoverage = 10;
+
+        this.mXWind = 0;
+        this.mYWind = 0;
     }
+
+    getXCoverage(){ return this.mXCoverage};
+    getYCoverage(){ return this.mYCoverage};
+
+    setXCoverage(xCoverage){ this.mXCoverage = xCoverage};
+    setYCoverage(yCoverage){ this.mYCoverage = yCoverage};
+
+    getXWind() { return this.mXWind};
+    getYWind() { return this.mYWind};
+
+    setXWind(xWind) { this.mXWind = xWind};
+    setYWind(yWind) { this.mYWind = yWind};
+
 
 
     emitParticles(pSet) {
-        let sizex = 10;
-        let sizey = 9;
-        
         let i, p ,x ,y;
         for (i = 0; i < this.mNumParticles; i++) {
-            x = Math.floor(Math.random() * (sizex + 1));
-            y = Math.floor(Math.random() * (sizey + 1));
+            x = Math.floor(Math.random() * (this.mXCoverage + 1));
+            y = Math.floor(Math.random() * (this.mYCoverage + 1));
             p = this.createParticle(this.mEmitPosition[0] + x, this.mEmitPosition[1] + y);
             pSet.addToSet(p);
         }
@@ -41,19 +56,17 @@ class SmokeEmitter extends ParticleEmitter {
 
     createParticle(atX, atY) {
         let life = 30 + Math.random() * 300;
-        let p = new SmokeParticle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
-
+        let p = new engine.Particle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life, this.mStartColor);
         // size of the particle
         let r = this.mSizeRange + Math.random() * this.mSize;
         p.setSize(r, r);
-
         // velocity on the particle
         let fx = 10 - 20 * Math.random();
         let fy = 10 * Math.random();
         p.setVelocity(fx, fy);
 
-        p.setAcceleration(2,3);
-        
+        p.setAcceleration(0, 0);
+
         // final color
         p.setFinalColor(this.mEndColor);
 

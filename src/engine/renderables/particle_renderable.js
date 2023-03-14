@@ -9,12 +9,12 @@ import * as defaultShaders from "../core/shader_resources.js";
 import TextureRenderable from "./texture_renderable.js";
 
 class ParticleRenderable extends TextureRenderable {
-    constructor(myTexture) {
-        super(myTexture);
+    constructor(myTexture, color) {
+        super(myTexture, color);
         this._setShader(defaultShaders.getParticleShader());
     }
-    setColor(color){
-       super.setColor(color);
+    setStartColor(c){
+        super.setColor(c);
     }
     getColor(){
         return super.getColor();

@@ -73,7 +73,6 @@ import ParticleSet from "./particles/particle_set.js";
 import ParticleEmitter from "./particles/particle_emitter.js";
 import FireEmitter from "./particles/fire_emitter.js";
 import FireParticle from "./particles/fire_particle.js";
-import SmokeParticle from "./particles/smoke_particle.js";
 import SmokeEmitter from "./particles/smoke_emitter.js";
 import EchoEmmiter from "./particles/echo_emitter.js";
 import ExplosionEmmiter from "./particles/explosion_emitter.js";

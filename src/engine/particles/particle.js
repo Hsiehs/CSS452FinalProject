@@ -12,8 +12,8 @@ import * as debugDraw from "../core/debug_draw.js";
 let kSizeFactor = 0.2;
 
 class Particle {
-    constructor(texture, x, y, life) {
-        this.mRenderComponent = new ParticleRenderable(texture);
+    constructor(texture, x, y, life, color) {
+        this.mRenderComponent = new ParticleRenderable(texture, color);
         this.setPosition(x, y);
 
         // position control
