@@ -16,21 +16,25 @@ class MyGame extends engine.Scene {
         this.mMsg = null;
         this.mParticles = null;
 
-        this.mEffects = ["Fire", "Smoke", "Explosion"];
+        this.mEffects = ["Default", "Fire", "Smoke", "Explosion"];
         this.mEffectsSelector = 0;
 
-        //fire specific
+        //Fire Parameters
         this.mFireROC = 0.97;
         this.mFireSpread = 0;
         this.mFireXDir = 0;
         this.mFireHeight = 50;
 
-        //smoke specific
+        //Smoke Parameters
+        this.mThickness = 1;
         this.mXCoverage = 10;
         this.mYCoverage = 10;
         this.mXWind = 0;
         this.mYWind = 0;
 
+        //Explosion Parameters
+        this.mRadius = 10;
+        this.mForce = 2;
     }
 
     load() {
@@ -86,12 +90,12 @@ class MyGame extends engine.Scene {
     update() {
         let msg2 = "Effect Type: " + this.mEffects[this.mEffectsSelector];
         let msg;
-        if (this.mEffectsSelector == 0) {
+        if (this.mEffectsSelector == 1) {
             msg = "Rate of change: " + this.mFireROC + " Fire Spread: " + this.mFireSpread + " Wind: " + this.mFireXDir + " Height: " + this.mFireHeight;
-        } else if (this.mEffectsSelector == 1) {
-            msg = "X Coverage: " + this.mXCoverage + " Y Coverage: " + this.mYCoverage ;
         } else if (this.mEffectsSelector == 2) {
-            msg = ""
+            msg = "Thickness: " + this.mThickness + " X Coverage: " + this.mXCoverage + " Y Coverage: " + this.mYCoverage + " X Wind: " + this.mXWind + " Y Wind: " + this.mYWind;
+        } else if (this.mEffectsSelector == 3) {
+            msg = "Radius: " + this.mRadius + " Force: " +this.mForce;
         } else {
             msg = ""
         }
@@ -113,20 +117,28 @@ class MyGame extends engine.Scene {
         if (engine.input.isButtonPressed(engine.input.eMouseButton.eLeft)) {
             let x = engine.input.getMousePosX() / 8;
             let y = engine.input.getMousePosY() / 7.5;
-            if (this.mEffectsSelector == 0) {
+            if(this.mEffectsSelector == 0){
+                this.defaultEffect = this.mParticles.createEffect(x, y);
+            }else if (this.mEffectsSelector == 1) {
                 this.fireEffect = this.mParticles.createFire(x, y, 5000);
                 this.fireEffect.setSizeROC(this.mFireROC);
                 this.fireEffect.setFlameSpread(this.mFireSpread);
                 this.fireEffect.setWindDirection([this.mFireXDir, this.mFireHeight]);
-            } else if (this.mEffectsSelector == 1) {
-                this.smokeEffect = this.mParticles.createSmoke(x, y, 1500);
-
             } else if (this.mEffectsSelector == 2) {
+                this.smokeEffect = this.mParticles.createSmoke(x, y, 1500);
+                this.smokeEffect.setXCoverage(this.mXCoverage);
+                this.smokeEffect.setYCoverage(this.mYCoverage);
+                this.smokeEffect.setXWind(this.mXWind);
+                this.smokeEffect.setYWind(this.mYWind);
+                this.smokeEffect.setThickness(this.mThickness);
+            } else if (this.mEffectsSelector == 3) {
                 this.explosionEffect = this.mParticles.createExplosion(x, y);
+                this.explosionEffect.setExplosionTargetRadius(this.mRadius);
+                this.explosionEffect.setExplosionForce(this.mForce);
             }
         }
 
-        // Fire Specifications 
+        // Fire Parameters 
 
         // ROC
         if (engine.input.isKeyClicked(engine.input.keys.One)) {
@@ -157,8 +169,8 @@ class MyGame extends engine.Scene {
             }
         }
         if (engine.input.isKeyClicked(engine.input.keys.Six)) {
-            if (this.mFireHeight < 50) {
-                this.mFireHeight+= 5;
+            if (this.mFireXDir < 50) {
+                this.mFireXDir += 5;
             }
         }
         // Height
@@ -172,25 +184,96 @@ class MyGame extends engine.Scene {
                 this.mFireHeight += 5;
             }
         }
-
-
+        
+        // Smoke Parameters
 
         if (engine.input.isKeyClicked(engine.input.keys.Q)) {
-            this.fireEffect.setFlameSway(this.fireEffect.getFlameSway() - 5);
+            if (this.mThickness > 1) {
+                this.mThickness -= 1;
+            }
         }
 
         if (engine.input.isKeyClicked(engine.input.keys.W)) {
-            this.fireEffect.setFlameSway(this.fireEffect.getFlameSway() + 5);
+            if (this.mThickness < 5) {
+                this.mThickness += 1;
+            }
         }
+        // X Coverage
+        if (engine.input.isKeyClicked(engine.input.keys.E)) {
+            if (this.mXCoverage > 10) {
+                this.mXCoverage -= 5;
+            }
+        }
+
         if (engine.input.isKeyClicked(engine.input.keys.R)) {
-            this.fireEffect.setEndColor([1, .3, 0, 1]);
+            if (this.mXCoverage < 50) {
+                this.mXCoverage += 5;
+            }
         }
-        if (engine.input.isKeyClicked(engine.input.keys.G)) {
-            this.fireEffect.setEndColor([.4, 1, 0, 1]);
+        //Y Coverage
+        if (engine.input.isKeyClicked(engine.input.keys.T)) {
+            if (this.mYCoverage > 10) {
+                this.mYCoverage -= 5;
+            }
         }
-        if (engine.input.isKeyClicked(engine.input.keys.B)) {
-            this.fireEffect.setEndColor([0, .3, 1, 0]);
+
+        if (engine.input.isKeyClicked(engine.input.keys.Y)) {
+            if (this.mYCoverage < 50) {
+                this.mYCoverage += 5;
+            }
         }
+
+        // Wind X direction
+        if (engine.input.isKeyClicked(engine.input.keys.U)) {
+            if (this.mXWind > -25) {
+                this.mXWind -= 5;
+            }
+        }
+
+        if (engine.input.isKeyClicked(engine.input.keys.I)) {
+            if (this.mXWind < 20) {
+                this.mXWind += 5;
+            }
+        }
+
+        // Wind Y direction 
+
+        if (engine.input.isKeyClicked(engine.input.keys.O)) {
+            if (this.mYWind > -25) {
+                this.mYWind -= 5;
+            }
+        }
+
+        if (engine.input.isKeyClicked(engine.input.keys.P)) {
+            if (this.mYWind < 20) {
+                this.mYWind += 5;
+            }
+        }
+        // Explosion Parameters
+        
+        // Radius
+        if (engine.input.isKeyClicked(engine.input.keys.A)) {
+            if (this.mRadius > 5) {
+                this.mRadius -= 1;
+            }
+        }
+        if (engine.input.isKeyClicked(engine.input.keys.S)) {
+            if (this.mRadius < 15) {
+                this.mRadius += 1;
+            }
+        }
+
+        if (engine.input.isKeyClicked(engine.input.keys.D)) {
+            if (this.mForce > 1) {
+                this.mForce -= 1;
+            }
+        }
+        if (engine.input.isKeyClicked(engine.input.keys.F)) {
+            if (this.mForce < 5) {
+                this.mForce += 1;
+            }
+        }
+
         // Particle System
         this.mParticles.update();
 

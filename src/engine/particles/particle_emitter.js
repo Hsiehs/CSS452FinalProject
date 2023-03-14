@@ -1,5 +1,5 @@
 "use strict";
-
+import engine from "../index.js";
 let kMinToEmit = 5; // Smallest number of particle emitted per cycle
 
 class ParticleEmitter {
@@ -9,10 +9,10 @@ class ParticleEmitter {
         // Number of particles left to be emitted
         this.mNumParticles = 10;
         // Size of particles
-        this.mSize = 0.001;
+        this.mSize = 0.01;
         // Color of effect
-        this.mStartColor = [1, 1, 1, 1];
-        this.mEndColor = [1, 1, 1, 1];
+        this.mStartColor = [1, 0, 1, 1];
+        this.mEndColor = [0, 1, 1, 1];
         // Modifier for the size
         this.mSizeRange = 5;
         // Rate of change of size per update as scale
@@ -65,7 +65,7 @@ class ParticleEmitter {
         let life = 30 + Math.random() * 200;
         let p = new engine.Particle(engine.defaultResources.getDefaultPSTexture(), atX, atY, life);
         
-        //p.setColor(this.mStartColor);
+        p.setColor(this.mStartColor);
         
         // size of the particle
         let r = this.mSize + Math.random() * this.mSizeRange;

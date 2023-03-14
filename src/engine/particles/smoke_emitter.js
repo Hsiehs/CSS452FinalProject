@@ -13,7 +13,7 @@ class SmokeEmitter extends ParticleEmitter {
         }
 
         // Default Smoke effect values
-        this.mNumParticles = 0.1;
+        this.mNumParticles = 1;
         this.mSize = 3;
         this.mStartColor = [0.8, 0.8, 0.8, 1];
         this.mEndColor = [0, 0, 0, 1];
@@ -39,8 +39,6 @@ class SmokeEmitter extends ParticleEmitter {
     setXWind(xWind) { this.mXWind = xWind};
     setYWind(yWind) { this.mYWind = yWind};
 
-
-
     emitParticles(pSet) {
         let i, p ,x ,y;
         for (i = 0; i < this.mNumParticles; i++) {
@@ -65,7 +63,7 @@ class SmokeEmitter extends ParticleEmitter {
         let fy = 10 * Math.random();
         p.setVelocity(fx, fy);
 
-        p.setAcceleration(0, 0);
+        p.setAcceleration(this.mXWind, this.mYWind);
 
         // final color
         p.setFinalColor(this.mEndColor);

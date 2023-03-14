@@ -8,10 +8,10 @@ class ExplosionEmitter extends ParticleEmitter {
         super(px, py);
 
         // One explosion
-        this.lifetime = 840 + Date.now();
+        this.lifetime = 600 + Date.now();
 
         // Defualt effect values
-        this.mNumParticles = 9; 
+        this.mNumParticles = 4; 
         this.mStartColor = [1, 0.5, 0, 1]; // orange
         this.mEndColor = [0, 0, 0, 0]; // black (fully transparent)
         this.mSize = 2;
